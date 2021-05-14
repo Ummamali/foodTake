@@ -56,17 +56,21 @@ export default function App(props) {
   }
   return (
     <div>
-      <BillModal
-        active={modalActive.bill}
-        cancel={cancelModal.bind(null, "bill")}
-        onCheckout={checkoutHandler}
-        itemsData={itemsData}
-        changeItemsData={changeItemsData}
-      />
-      <OrderFormModal
-        active={modalActive.orderForm}
-        cancel={cancelModal.bind(null, "orderForm")}
-      />
+      {modalActive.bill ? (
+        <BillModal
+          active={modalActive.bill}
+          cancel={cancelModal.bind(null, "bill")}
+          onCheckout={checkoutHandler}
+          itemsData={itemsData}
+          changeItemsData={changeItemsData}
+        />
+      ) : null}
+      {modalActive.orderForm ? (
+        <OrderFormModal
+          active={modalActive.orderForm}
+          cancel={cancelModal.bind(null, "orderForm")}
+        />
+      ) : null}
       <Nav items={total} activateModal={activateModal.bind(null, "bill")} />
       {ReactDOM.createPortal(
         <Backdrop />,

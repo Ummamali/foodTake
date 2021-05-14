@@ -21,7 +21,7 @@ export default function BillModal(props) {
     }
   }
   return (
-    <Modal active={props.active} cancel={props.cancel}>
+    <Modal cancel={props.cancel}>
       <div className="small-card p-6 rounded">
         <div>{itemsList}</div>
         <div className="flex items-center justify-between px-2 py-3 text-lg">
@@ -32,6 +32,7 @@ export default function BillModal(props) {
           <button
             className="btn bg-primary-light text-white text-opacity-70 tracking-wide rounded font-light"
             onClick={props.onCheckout}
+            disabled={total === 0}
           >
             Order
           </button>

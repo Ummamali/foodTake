@@ -16,6 +16,11 @@ body {
   overflow-x: hidden;
 }
 
+button:disabled {
+  opacity: 50%;
+  cursor: default;
+}
+
 .contain {
   max-width: var(--contain-width);
   margin-left: auto;
@@ -170,19 +175,29 @@ button:focus {
 /* classes form form groups */
 .group-label {
   display: block;
-  color: #616161;
+  color: #787878;
   margin-bottom: 4px;
+  font-size: 15px;
 }
 .group-input {
   display: block;
   width: 100%;
-  border: 0.8px solid rgb(157, 157, 157);
+  border: 1px solid #c2c2c2;
   border-radius: 4px;
-  padding: 8px 10px;
+  padding: 6px 10px;
+  transition: border-color 200ms ease-out, background-color 300ms ease-out;
 }
 .group-input:focus {
   outline: none;
   border-color: #292524;
+}
+.group-input.is-invalid {
+  border-color: red;
+  background-color: #ff000012;
+}
+
+.transOp {
+  transition: opacity 800ms ease-out;
 }
 
 @keyframes bounce {
