@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 // components
@@ -9,12 +9,13 @@ import FoodItems from "./FoodItems/FoodItems";
 import BillModal from "./Header/BillModal";
 import OrderFormModal from "./Header/OrderFormModal";
 
-// data
-import itemsDataDefault from "../data";
+// hooks
+import useRequest from "../hooks/useRequest";
 
 // This is the root App component
 export default function App(props) {
-  const [itemsData, setItemsData] = useState(itemsDataDefault);
+  const [itemsData, setItemsData] = useState(undefined);
+  const [reqData, sendReq] = useRequest("GET");
   const [modalActive, setModalActive] = useState({
     bill: false,
     orderForm: false,
@@ -49,6 +50,19 @@ export default function App(props) {
     total += itemsData[key].amount;
   }
 
+  // the effects
+  useEffect(() => {
+    sendReq({ route: "/items" });
+  }, []);
+
+  useEffect(() => {
+    if (reqData.status === 2) {
+      setItemsData(reqData.resObj.payload);
+    } else if ((reqData.status === 3) | (reqData.status === 4)) {
+      setItemsData(null);
+    }
+  }, [reqData.status]);
+
   //   This will display the user form to checkout
   function checkoutHandler() {
     activateModal("orderForm");
@@ -71,7 +85,11 @@ export default function App(props) {
           cancel={cancelModal.bind(null, "orderForm")}
         />
       ) : null}
-      <Nav items={total} activateModal={activateModal.bind(null, "bill")} />
+      <Nav
+        items={total}
+        activateModal={activateModal.bind(null, "bill")}
+        hasLoaded={reqData.status === 2}
+      />
       {ReactDOM.createPortal(
         <Backdrop />,
         document.getElementById("independents")
