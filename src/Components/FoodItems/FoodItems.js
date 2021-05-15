@@ -17,7 +17,7 @@ export default function FoodItems(props) {
   } else if (props.itemsData === null) {
     itemsList = (
       <div className="text-center text-red-600 font-medium">
-        <p>There is some error regarding the request.</p>
+        <p>We were unable to load food items.</p>
         <small className="italic font-normal">Try reloading the page</small>
       </div>
     );
