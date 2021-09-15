@@ -1,5 +1,5 @@
 # foodTake
-A frontend React application to place orders various items.
+A frontend React application to place orders for various food items.
 
 # Features
 * Data about the food items is loaded from the backend
